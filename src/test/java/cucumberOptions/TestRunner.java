@@ -9,7 +9,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/java/features",
         glue = "stepDefinitions",
-        stepNotifications = true
+        stepNotifications = true,
+        tags = "@SmokeTest or RegTest"
 )
 public class TestRunner {
 }
