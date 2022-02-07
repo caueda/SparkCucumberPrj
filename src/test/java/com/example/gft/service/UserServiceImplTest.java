@@ -19,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.isA;
 
+import rx.Observable;
+
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
@@ -58,4 +60,12 @@ class UserServiceImplTest {
         stringJoiner.add("Two");
         assertEquals("One, Two", stringJoiner.toString());
     }
+
+    @Test
+    void testRxJava() {
+        Observable.range(1, 10).subscribe(
+                System.out::println
+        );
+    }
+
 }
