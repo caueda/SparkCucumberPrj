@@ -3,6 +3,7 @@ package com.example.gft;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,18 @@ public class YmlTest {
             return new ObjectMapper(new YAMLFactory()).readValue(file, Map.class);
         }).get();
         assertEquals("SELECT SYSDATE FROM DUAL", source.get("QUERY1"));
+    }
+
+    @Test
+    public void functionInterfaceTest() {
+        Function<String, String> f = (value) -> {
+            if(value == null) {
+                return "nada";
+            } else {
+                return "value = " + value;
+            }
+        };
+        assertEquals("value = hello", f.apply("hello"));
     }
 
     @Test
