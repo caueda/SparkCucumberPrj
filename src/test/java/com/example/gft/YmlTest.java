@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,12 @@ public class YmlTest {
             }
         };
         assertEquals("value = hello", f.apply("hello"));
+    }
+
+    @Test
+    public void supplierInterfaceTest() {
+        Supplier<String> sup = () -> "Hello World";
+        assertEquals("Hello World", sup.get());
     }
 
     @Test
