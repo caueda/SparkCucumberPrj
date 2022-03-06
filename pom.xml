@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>GFT</artifactId>
+    <artifactId>spark-cucumber-prj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>GFT</name>
+    <name>SparkCucumberPrj</name>
     <description>SparkCucumberPrj</description>
     <properties>
         <java.version>11</java.version>
