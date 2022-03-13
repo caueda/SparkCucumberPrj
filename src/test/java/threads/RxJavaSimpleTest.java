@@ -1,22 +1,17 @@
 package threads;
 
-import io.vavr.Tuple;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.vavr.Tuple2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.util.TestPropertyValues;
-import rx.Observable;
-import rx.observables.SyncOnSubscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class RxJavaSimpleTest {
@@ -33,7 +28,7 @@ class RxJavaSimpleTest {
     }
 
     public static Observable<Long> getLongObservable(Observable<?> obs) {
-        return Observable.from(Arrays.asList(1L, 2L, 3L));
+        return Observable.fromArray(new Long[]{1L, 2L, 3L});
     }
 
     @Test
@@ -51,14 +46,14 @@ class RxJavaSimpleTest {
 
     @Test
     public void zipWith() {
-        Observable<Integer> integers = Observable.from(Stream.of(1,2,3,4,5,6,7,8).collect(Collectors.toList()));
-        Observable<Boolean> booleans = Observable.from(Stream.of(true, false, true, false, true, false, true, false).collect(Collectors.toList()));
+        Observable<Integer> integers = Observable.fromArray(new Integer[]{1,2,3,4,5,6,7,8});
+        Observable<Boolean> booleans = Observable.fromArray(new Boolean[]{true, false, true, false, true, false, true, false});
         List<Integer> processedList = new ArrayList<>();
         BigDecimal result = integers.zipWith(booleans, (i, b)-> new Tuple2<Integer, Boolean>(i,b))
                 .filter(tuple2 -> tuple2._2)
                 .map(tuple2 -> BigDecimal.valueOf(tuple2._1))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .toBlocking().firstOrDefault(BigDecimal.ZERO);
+                .blockingGet();
         assertEquals(BigDecimal.valueOf(16), result);
     }
 
@@ -75,7 +70,12 @@ class RxJavaSimpleTest {
         }));
         Observable<String> bestSeller = Observable.just("Lord of the Rings");
         Observable<String> book = recommend.doOnError(System.out::println).onErrorResumeNext(bestSeller);
-        String result = book.toBlocking().firstOrDefault("");
+        String result = book.blockingFirst();
         assertEquals("Lord of the Rings", result);
+    }
+
+    @Test
+    public void flowableTest() {
+        Flowable<String> test = Flowable.just("Hello");
     }
 }

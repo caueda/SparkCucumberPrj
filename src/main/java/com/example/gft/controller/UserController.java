@@ -36,7 +36,6 @@ public class UserController {
 
     @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserDTOList> findAll() {
-        log.error("Profile test config.appName = " + config.getAppName() + " cpus: " + config.getCpus());
         List<User> users = userService.findAll();
         UserDTOList userDTOList = new UserDTOList(users);
         return new ResponseEntity<UserDTOList>(userDTOList, HttpStatus.FOUND);

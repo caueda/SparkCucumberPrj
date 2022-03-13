@@ -2,11 +2,11 @@ package com.example.gft.service;
 
 import com.example.gft.model.User;
 import com.example.gft.repository.UserRepository;
+import io.reactivex.Observable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,9 +17,6 @@ import java.util.StringJoiner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.isA;
-
-import rx.Observable;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
