@@ -38,7 +38,7 @@ public class stepDefinition {
     }
 
     @Given(": a map")
-    public void a_map(io.cucumber.datatable.DataTable dataTable) {
+    public void a_map(List<CountryStateEntry> countryStateEntries) {
 //        List<List<String>> rows = dataTable.asLists(String.class);
 //        List<CountryStateEntry> countryStateEntries = new ArrayList<>();
 //        int header = 1;
@@ -53,10 +53,10 @@ public class stepDefinition {
 //                    .build());
 //        }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, String>> listOfMaps = dataTable.asMaps(String.class, String.class);
-        List<CountryStateEntry> countryStateEntries = new ArrayList<>();
-        listOfMaps.forEach(map -> countryStateEntries.add(objectMapper.convertValue(map, CountryStateEntry.class)));
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        List<Map<String, String>> listOfMaps = dataTable.asMaps(String.class, String.class);
+//        List<CountryStateEntry> countryStateEntries = new ArrayList<>();
+//        listOfMaps.forEach(map -> countryStateEntries.add(objectMapper.convertValue(map, CountryStateEntry.class)));
 
         System.out.println(countryStateEntries);
     }
