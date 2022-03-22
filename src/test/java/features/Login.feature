@@ -1,5 +1,12 @@
 Feature: Application Login
 
+  Background: A clean test
+    Given : a map
+    | country  | state |
+    | Brazil   | MT    |
+    | Brazil   | PR    |
+    | Brazil   | SC    |
+
   Scenario: Home page default login
     Given User is on NetBanking landing page
     When User login into application with "Jin" and "Password"

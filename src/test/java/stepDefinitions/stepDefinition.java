@@ -1,7 +1,16 @@
 package stepDefinitions;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.java.DefaultDataTableCellTransformer;
+import io.cucumber.java.DefaultDataTableEntryTransformer;
+import io.cucumber.java.DefaultParameterTransformer;
 import io.cucumber.java.en.*;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  Feature: Application Login
@@ -13,9 +22,43 @@ import io.cucumber.java.en.*;
  And Cards are displayed
  */
 public class stepDefinition {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @DefaultParameterTransformer
+    @DefaultDataTableEntryTransformer
+    @DefaultDataTableCellTransformer
+    public Object transformer(Object fromValue, Type toValueType) {
+        return objectMapper.convertValue(fromValue, objectMapper.constructType(toValueType));
+    }
+
     @Given("^User is on NetBanking landing page$")
     public void user_is_on_NetBanking_Landing() {
         System.out.println("user_is_on_NetBanking_Landing");
+    }
+
+    @Given(": a map")
+    public void a_map(io.cucumber.datatable.DataTable dataTable) {
+//        List<List<String>> rows = dataTable.asLists(String.class);
+//        List<CountryStateEntry> countryStateEntries = new ArrayList<>();
+//        int header = 1;
+//        for(List<String> row : rows) {
+//            if(header == 1) {
+//                ++header;
+//                continue;
+//            }
+//            countryStateEntries.add(CountryStateEntry.builder()
+//                            .country(row.get(0))
+//                            .state(row.get(1))
+//                    .build());
+//        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, String>> listOfMaps = dataTable.asMaps(String.class, String.class);
+        List<CountryStateEntry> countryStateEntries = new ArrayList<>();
+        listOfMaps.forEach(map -> countryStateEntries.add(objectMapper.convertValue(map, CountryStateEntry.class)));
+
+        System.out.println(countryStateEntries);
     }
 
     @When("^User login into application with \"([^\"]*)\" and \"([^\"]*)\"$")
