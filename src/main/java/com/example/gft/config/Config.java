@@ -11,7 +11,7 @@ import lombok.Data;
 @Component
 @Data
 @ImportResource
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "taco")
 public class Config {
     private String appName;
     private String cpus;
