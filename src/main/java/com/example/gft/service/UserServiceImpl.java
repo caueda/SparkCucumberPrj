@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+        return userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        return Optional.of(userRepository.findAllById(List.of(id))).map(
+                l -> {
+                    if(l.isEmpty()) return null;
+                    else return l.get(0);
+                }
+        );
     }
 }

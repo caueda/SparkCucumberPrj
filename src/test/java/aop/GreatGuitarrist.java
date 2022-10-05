@@ -10,4 +10,9 @@ public class GreatGuitarrist implements Singer {
         log.info(lyric);
         return lyric;
     }
+
+    @Override
+    public String sing(String song) {
+        return String.format("Singing the song %s", song);
+    }
 }

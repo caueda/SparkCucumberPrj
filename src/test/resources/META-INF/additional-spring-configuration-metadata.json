@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "appName",
+      "type": "java.lang.String",
+      "description": "This is the application name."
+    },
+    {
+      "name": "cpus",
+      "type": "java.lang.String",
+      "description": "Description for appName."
+    }
+  ] }

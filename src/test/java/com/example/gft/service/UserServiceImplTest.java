@@ -37,7 +37,7 @@ class UserServiceImplTest {
     @Test
     void save() {
         userService.save(new User());
-        Mockito.verify(userRepository, Mockito.times(1)).save(Mockito.any(User.class));
+        Mockito.verify(userRepository, Mockito.times(1)).saveAndFlush(Mockito.any(User.class));
     }
 
     @Test
