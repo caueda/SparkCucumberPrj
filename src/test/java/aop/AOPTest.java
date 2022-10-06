@@ -37,9 +37,11 @@ public class AOPTest {
 
     @Test
     public void slashSing() {
-        System.out.println(message);
+        String expectedSongFromSlash = "Singing the song sweet child of mine";
         Objects.nonNull(this.slash);
-        slash.sing("sweet child of mine");
+        var song = slash.sing("sweet child of mine");
+        assertThat("Hello World", equalTo(message));
+        assertThat(expectedSongFromSlash, equalTo(song));
     }
 
     @Test
