@@ -9,7 +9,7 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,6 +24,9 @@ import static org.hamcrest.Matchers.equalTo;
 @ComponentScan("aop")
 public class AOPTest {
 
+    @Value("${USER}")
+    private String username;
+
     public AOPTest(@Qualifier("johnMayer") Guitarist johnMayer, @Qualifier("slash") GreatGuitarrist slash,
                    @Qualifier("message") String message) {
         this.johnMayer = johnMayer;
@@ -37,6 +40,7 @@ public class AOPTest {
 
     @Test
     public void slashSing() {
+        System.out.println(">>>>>> " + this.username + " >>>>>");
         String expectedSongFromSlash = "Singing the song sweet child of mine";
         Objects.nonNull(this.slash);
         var song = slash.sing("sweet child of mine");
