@@ -64,6 +64,11 @@ public class AOPTest {
     }
 
     @Test
+    public void testSubstitution() {
+        String expected = "row:config";
+        assertThat(expected, equalTo(String.format("%sconfig", "row:")));
+    }
+    @Test
     public void testSimpleStaticPointCut() {
         Guitarist guitarrist = new Guitarist();
         GreatGuitarrist greatGuitarrist = new GreatGuitarrist();
