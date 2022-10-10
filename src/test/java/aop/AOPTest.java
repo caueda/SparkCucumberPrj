@@ -40,7 +40,7 @@ public class AOPTest {
 
     @Test
     public void slashSing() {
-        System.out.println(">>>>>> " + this.username + " >>>>>");
+        System.out.println(String.format("Print the env variable $USER - %s", this.username));
         String expectedSongFromSlash = "Singing the song sweet child of mine";
         Objects.nonNull(this.slash);
         var song = slash.sing("sweet child of mine");
