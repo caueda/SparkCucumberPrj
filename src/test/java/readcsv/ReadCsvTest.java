@@ -55,7 +55,7 @@ public class ReadCsvTest {
 
     @Test
     public void saltTest() {
-        var list = IntStream.range(0, 10).boxed()
+        var list = IntStream.range(0, 1).boxed()
                 .map(n -> org.apache.spark.sql.functions.lit(n))
                 .collect(Collectors.toList());
         System.out.println(list);
