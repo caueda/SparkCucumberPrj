@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class AnnotatedAdvice {
 
-    @Pointcut("execution(* com.example.gft.aop..sing*(java.lang.String)) && args(song)")
+    @Pointcut("execution(* aop..sing*(java.lang.String)) && args(song)")
     public void singWithArgument(String song) {}
 
     @Pointcut("bean(slash)")
@@ -16,7 +16,7 @@ public class AnnotatedAdvice {
 
     @Before("singWithArgument(song) && isSlash()")
     public void simpleBeforeAdvice(JoinPoint joinPoint, String song){
-        System.out.println("Executing " + joinPoint.getSignature().getDeclaringTypeName()
+        System.out.println("#### Executing " + joinPoint.getSignature().getDeclaringTypeName()
                 + joinPoint.getSignature().getName() + " argument: " + song);
     }
 }
