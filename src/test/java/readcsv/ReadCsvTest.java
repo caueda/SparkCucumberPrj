@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @ExtendWith(SpringExtension.class)
 @Slf4j
@@ -39,16 +40,24 @@ public class ReadCsvTest {
                 StringBuilder select = new StringBuilder();
                 if(header == null) {
                     for(int i=0; i<values.length; i++) {
-                        select.append(" '%s' as " + values[i] + ((i<i-1) ? ", " : " "));
+                        select.append("'%s' as " + values[i] + ((i<i-1) ? ", " : " "));
                     }
-                    header = "select" + select.toString();
+                    header = "select " + select.toString();
                 } else {
                     sql.add(String.format(header, values));
                 }
             }
-            System.out.println(sql.stream().collect(Collectors.joining(" union all ")));
+            System.out.println(sql.stream().collect(Collectors.joining("\nunion all \n")));
         } catch (IOException e) {
             log.error("IOException", e);
         }
+    }
+
+    @Test
+    public void saltTest() {
+        var list = IntStream.range(0, 10).boxed()
+                .map(n -> org.apache.spark.sql.functions.lit(n))
+                .collect(Collectors.toList());
+        System.out.println(list);
     }
 }
