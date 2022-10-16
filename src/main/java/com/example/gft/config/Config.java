@@ -15,5 +15,6 @@ import lombok.Data;
 public class Config {
     private String appName;
     private String cpus;
+    private String os;
     public Map<String, String> externalMapping;
 }

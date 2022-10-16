@@ -7,6 +7,7 @@ import org.apache.tomcat.jni.Time;
 import org.h2.command.dml.Call;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -74,5 +75,12 @@ public class ThreadTest {
             }
             return fact;
         }
+    }
+
+    @Test
+    public void testFormatString() {
+        String template = "select %s as nome, %s as endereco, %s as idade from dual";
+        String[] params = new String[]{"João", "Rua A", "29"};
+        System.out.println(String.format(template, Arrays.stream(params).map(v -> String.format("'%s'", v)).toArray(String[]::new)));
     }
 }

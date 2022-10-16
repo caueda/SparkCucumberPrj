@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 public class User implements Serializable {
+    @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -43,5 +44,13 @@ public class User implements Serializable {
                 ", surname='" + surname + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -14,7 +14,7 @@ class GftApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println(config.getAppName());
+        System.out.println(config.getOs());
     }
 
 }
