@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class BitwiseOperatorsTest {
     @Test
@@ -30,5 +31,26 @@ public class BitwiseOperatorsTest {
         int b = Byte.toUnsignedInt((byte) ~a);
         //Then
         assertThat(b, equalTo(255-a));
+    }
+
+    @Test
+    public void testSecondBitSetted() {
+        int a=3;
+        int b=1;
+        int secondBitSetted=2;
+        //Second bit setted
+        assert (secondBitSetted & a) != 0;
+        //Second bit not setted
+        assert (secondBitSetted & b) == 0;
+    }
+
+    @Test
+    public void testLeftShift() {
+        assertThat(2, equalTo(1 << 1));
+        assertThat(1, equalTo(2 >> 1));
+        //A left shift is equivalent to multiplying by 2
+        assertThat(2 * 2, equalTo(2 << 1));
+        //A right shift is equivalent to the floor of a division by 2
+        assertThat(4 / 2, equalTo(4 >> 1));
     }
 }
