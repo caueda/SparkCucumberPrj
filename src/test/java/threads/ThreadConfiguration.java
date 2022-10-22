@@ -1,16 +1,16 @@
 package threads;
 
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Map;
 
-@TestConfiguration
+@Configuration
+@ComponentScan(basePackages = "threads")
 public class ThreadConfiguration {
     @Bean
-    public List<String> fruits() {
-        return Stream.of("Apple", "Orange", "Avocado").collect(Collectors.toList());
+    public Map<String, String> mapMessage() {
+        return Map.of("message", "Hello World from Map");
     }
 }

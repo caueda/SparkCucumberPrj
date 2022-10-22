@@ -3,20 +3,24 @@ package threads;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
+import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = ThreadConfigTest.class)
-@ComponentScan(basePackages = {"threads"})
+@ContextConfiguration(classes = {ThreadConfiguration.class})
 public class ThreadConfigTest {
+
     @Autowired
-    private List<String> fruits;
+    private MessageBean messageBean;
+
+    @Autowired
+    private Map<String, String> mapMessage;
+
     @Test
-    public void printFruits() {
-        System.out.println(fruits);
+    public void sayMessage() {
+        System.out.println(mapMessage.get("message"));
+        System.out.println(messageBean.message());
     }
 }
