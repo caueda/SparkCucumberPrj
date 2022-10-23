@@ -2,6 +2,9 @@ package bitwiseoperators;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -13,6 +16,23 @@ public class BitwiseOperatorsTest {
         assertThat(0, equalTo(1 & 0));
     }
 
+    @Test
+    public void testMorse() {
+        List<String> ans = new ArrayList<>();
+        String morsecode = "....";
+        for (int i=0; i< morsecode.length()-1; i++) {
+            StringBuilder m = new StringBuilder();
+            for(int j=0; j<morsecode.length(); j++) {
+                if(j==i || j==(i+1)) {
+                    m.append("-");
+                } else {
+                    m.append(morsecode.charAt(j));
+                }
+            }
+            ans.add(m.toString());
+        }
+        System.out.println(ans);
+    }
     @Test
     public void testNegationForSignedInt() {
         //Given a three bit number
