@@ -2,8 +2,8 @@ package bitwiseoperators;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -72,5 +72,30 @@ public class BitwiseOperatorsTest {
         assertThat(2 * 2, equalTo(2 << 1));
         //A right shift is equivalent to the floor of a division by 2
         assertThat(4 / 2, equalTo(4 >> 1));
+    }
+
+    @Test
+    public void mapAddAll() {
+        Map<String, List<String>> map1 = new HashMap<>();
+        Map<String, List<String>> map2 = new HashMap<>();
+
+        map1.put("2022-10-24", List.of("apple", "banana"));
+        map2.put("2022-10-23", List.of("avocado", "pear", "melon"));
+
+        Map<String, List<String>> map3 = new HashMap<>();
+        map3.putAll(map1);
+        map3.putAll(map2);
+        System.out.println(map3);
+
+        var list = map3.entrySet().stream().flatMap(entry -> entry.getValue().stream()).collect(Collectors.toList())
+                .stream().map(s -> s).collect(Collectors.toList());
+        System.out.println(list);
+    }
+
+    @Test
+    public void testMapReduce() {
+        Map<String, List<String>> map = Map.of("2022-10-24", Collections.EMPTY_LIST);
+        var qtde = map.values().stream().map(List::size).reduce(Integer::sum).get();
+        assertThat(0, equalTo(qtde));
     }
 }
