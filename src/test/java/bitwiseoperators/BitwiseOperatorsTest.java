@@ -1,5 +1,6 @@
 package bitwiseoperators;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BitwiseOperatorsTest {
     @Test
@@ -97,5 +99,15 @@ public class BitwiseOperatorsTest {
         Map<String, List<String>> map = Map.of("2022-10-24", Collections.EMPTY_LIST);
         var qtde = map.values().stream().map(List::size).reduce(Integer::sum).get();
         assertThat(0, equalTo(qtde));
+    }
+
+    @Test
+    public void testJsonParser() throws Exception {
+        Map<String, List<String>> map =
+                new ObjectMapper().readValue("{\"2022-10-28\": []}", Map.class);
+        String value = map.values().stream()
+                .flatMap(l -> l.stream())
+                .findFirst().orElse("");
+        assertThat(value, isEmptyString());
     }
 }
