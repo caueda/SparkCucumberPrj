@@ -19,14 +19,16 @@ public class SparkMain01 {
 
         Logger.getLogger("org.apache").setLevel(Level.WARN);
 
-        SparkConf conf = new SparkConf().setAppName("App").setMaster("local[*]");
-        JavaSparkContext sc = new JavaSparkContext(conf);
-        JavaRDD<Double> myRdd = sc.parallelize(inputData);
+        SparkConf conf = new SparkConf()
+                .setAppName("App")
+                //.set("spark.ui.enabled", "false")
+                .setMaster("local[*]");
+        JavaRDD<Double> myRdd;
+        try (JavaSparkContext sc = new JavaSparkContext(conf)) {
+            myRdd = sc.parallelize(inputData);
+            var result = myRdd.reduce(Double::sum);
 
-        var result = myRdd.reduce((aDouble, aDouble2) -> aDouble + aDouble2);
-
-        System.out.println("Result: " + result);
-
-        //sc.close();
+            System.out.println("Result: " + result);
+        }
     }
 }

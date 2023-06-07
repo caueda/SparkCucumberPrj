@@ -12,6 +12,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -40,5 +41,13 @@ public class YmlTest {
         String actual = config.getExternalMapping().get("local");
         log.info("Actual value {}", actual);
         assertEquals(EXPECTED, actual);
+    }
+
+    @Test
+    public void optionalTest() {
+        Optional<String> opt = Optional.ofNullable("success");
+        var classpath = opt.map(p -> p + "!!!!")
+                .orElse("There was nothing");
+        System.out.println(classpath);
     }
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -187,5 +188,23 @@ public class RxJavaTest {
                 .subscribe(System.out::println);
 
         countDownLatch.await();
+    }
+
+    @Test
+    void createObservable() {
+        var observable = Observable.defer(() ->
+            Observable.create(emitter -> {
+                var executor = Executors.newSingleThreadExecutor();
+                executor.submit(() -> {
+                    log.info("Executing");
+                    //Some logic
+                    emitter.onNext("One");
+                    emitter.onNext("Two");
+                    emitter.onNext("Three");
+                    emitter.onComplete();
+                });
+                executor.shutdown();
+            }));
+        observable.subscribe(System.out::println);
     }
 }
