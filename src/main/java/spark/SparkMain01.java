@@ -1,10 +1,8 @@
 package spark;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +15,16 @@ public class SparkMain01 {
         inputData.add(90.32);
         inputData.add(20.32);
 
-        Logger.getLogger("org.apache").setLevel(Level.WARN);
+        SparkSession spark = SparkSession.builder()
+                .appName("SparkMain02")
+                .master("local[*]")
+                .getOrCreate();
 
-        SparkConf conf = new SparkConf()
-                .setAppName("App")
-                //.set("spark.ui.enabled", "false")
-                .setMaster("local[*]");
-        JavaRDD<Double> myRdd;
-        try (JavaSparkContext sc = new JavaSparkContext(conf)) {
-            myRdd = sc.parallelize(inputData);
-            var result = myRdd.reduce(Double::sum);
-
-            System.out.println("Result: " + result);
+        JavaRDD<Double> rdd;
+        try (JavaSparkContext sc = JavaSparkContext.fromSparkContext(spark.sparkContext())) {
+            rdd = sc.parallelize(inputData);
+            var sum = rdd.reduce(Double::sum);
+            System.out.println("Result: " + sum);
         }
     }
 }

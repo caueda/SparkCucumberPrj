@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
@@ -22,5 +23,12 @@ public class ThreadConfigTest {
     public void sayMessage() {
         System.out.println(mapMessage.get("message"));
         System.out.println(messageBean.message());
+    }
+
+    @Test
+    public void mapTest() {
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "Hello World");
+        map.remove("teste");
     }
 }

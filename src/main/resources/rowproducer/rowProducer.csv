@@ -1,3 +1,3 @@
-﻿batchName;scenario;pvToSen;cashFlow
-LONDON;EODLONFO1;T;F
-BOOK;MPOR;T;T
+﻿batchName,scenario,pvToSen,cashFlow,posAndPE
+LONDON,EODLONFO1,Y,N,
+BOOK,MPOR,Y,Y,N

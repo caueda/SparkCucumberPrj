@@ -1,0 +1,11 @@
+<configuration>
+    <!-- Other configurations -->
+
+    <logger name="org" level="INFO" />
+    <logger name="akka" level="INFO" />
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
